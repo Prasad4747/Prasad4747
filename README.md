@@ -1,6 +1,6 @@
 
 <h1 align="center">Hi 👋, I'm Prasad Shinde</h1>
-<h3 align="center">Passionate Software Testing Graduate Seeking Opportunities to Grow in the Field of QA| Aspiring Entry level Software Testing Job |Contact -prasadshinde4010@gmail.com</h3>
+<h3 align="center">Trainee at Reactore Private Limited, learning and growing in software development and Software Testing. |Contact -prasadshinde4010@gmail.com</h3>
 <img align="right" alt="Coding" width="400" src="https://media.tenor.com/rePDfDWO3XoAAAAd/hacking.gif">
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=prasad4747&label=Profile%20views&color=0e75b6&style=flat" alt="prasad4747" /> </p>
