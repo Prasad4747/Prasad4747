@@ -7,7 +7,7 @@
 
 <p align="left"> <a href="https://twitter.com/" target="blank"><img src="https://img.shields.io/twitter/follow/?logo=twitter&style=for-the-badge" alt="" /></a> </p>
 
-- 🔭 I’m currently working on **Manual Testing and Selenium Project**
+- 🔭 I’m currently working on **Manual Testing and Selenium Project , Playwright With java Project**
 
 - 🌱 I’m currently learning **Linux Certification,Web Technology**
 
