@@ -1,819 +1,407 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prasad Shinde - QA Automation Engineer</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1425 100%);
-            color: #e0e0e0;
-            overflow-x: hidden;
-        }
-
-        /* Animated background particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(0, 255, 255, 0.5);
-            border-radius: 50%;
-            animation: float 15s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(100px);
-                opacity: 0;
-            }
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Header Section */
-        header {
-            text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1) 0%, rgba(255, 0, 255, 0.1) 100%);
-            border-radius: 20px;
-            margin-bottom: 40px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
-            animation: slideDown 0.8s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .profile-image {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 30px;
-            position: relative;
-        }
-
-        .profile-image::before {
-            content: '';
-            position: absolute;
-            width: 220px;
-            height: 220px;
-            top: -10px;
-            left: -10px;
-            border: 3px solid transparent;
-            border-image: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff);
-            border-image-slice: 1;
-            border-radius: 50%;
-            animation: rotate 4s linear infinite;
-        }
-
-        @keyframes rotate {
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .avatar {
-            width: 200px;
-            height: 200px;
-            background: linear-gradient(135deg, #1a1f3a, #0a0e27);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
-            border: 5px solid #00ffff;
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
-        }
-
-        h1 {
-            font-size: 3.5em;
-            background: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientShift 3s ease infinite;
-            margin-bottom: 15px;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .title {
-            font-size: 1.5em;
-            color: #00ffff;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-        }
-
-        .company {
-            font-size: 1.2em;
-            color: #ff00ff;
-            margin-bottom: 20px;
-        }
-
-        .tagline {
-            font-size: 1.1em;
-            color: #b0b0b0;
-            font-style: italic;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Stats Section */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), rgba(255, 0, 255, 0.05));
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            text-align: center;
-            transition: all 0.3s ease;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.3);
-            border-color: #00ffff;
-        }
-
-        .stat-number {
-            font-size: 3em;
-            font-weight: bold;
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 1.1em;
-            color: #a0a0a0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Skills Section */
-        .section {
-            background: linear-gradient(135deg, rgba(26, 31, 58, 0.6), rgba(10, 14, 39, 0.6));
-            padding: 40px;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        .section-title {
-            font-size: 2.2em;
-            margin-bottom: 30px;
-            color: #00ffff;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .section-title::before {
-            content: '';
-            width: 50px;
-            height: 4px;
-            background: linear-gradient(90deg, #00ffff, #ff00ff);
-            border-radius: 2px;
-        }
-
-        /* Current Focus */
-        .focus-grid {
-            display: grid;
-            gap: 15px;
-        }
-
-        .focus-item {
-            background: linear-gradient(90deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.05));
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #00ffff;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .focus-item:hover {
-            transform: translateX(10px);
-            background: linear-gradient(90deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.1));
-            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
-        }
-
-        .check-icon {
-            font-size: 1.5em;
-            color: #00ff00;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-        }
-
-        /* Tech Stack */
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .tech-item {
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.08), rgba(255, 0, 255, 0.08));
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .tech-item:hover {
-            transform: translateY(-8px) rotate(2deg);
-            border-color: #00ffff;
-            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
-        }
-
-        .tech-icon {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-
-        .tech-name {
-            font-weight: bold;
-            color: #00ffff;
-            margin-bottom: 5px;
-        }
-
-        .tech-level {
-            font-size: 0.9em;
-            color: #808080;
-        }
-
-        /* Skills bars */
-        .skills-list {
-            display: grid;
-            gap: 20px;
-        }
-
-        .skill {
-            background: rgba(0, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid rgba(0, 255, 255, 0.15);
-        }
-
-        .skill-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .skill-name {
-            font-weight: bold;
-            color: #00ffff;
-            font-size: 1.1em;
-        }
-
-        .skill-level {
-            color: #ff00ff;
-            font-weight: bold;
-        }
-
-        .skill-bar {
-            width: 100%;
-            height: 10px;
-            background: rgba(0, 255, 255, 0.1);
-            border-radius: 5px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, #00ffff, #ff00ff);
-            border-radius: 5px;
-            transition: width 1.5s ease;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-        }
-
-        /* Contact Section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .contact-item {
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .contact-item:hover {
-            transform: scale(1.08);
-            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
-        }
-
-        .contact-icon {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-        }
-
-        .contact-label {
-            font-weight: bold;
-            color: #00ffff;
-            margin-bottom: 8px;
-        }
-
-        .contact-value {
-            color: #b0b0b0;
-            font-size: 0.95em;
-        }
-
-        /* GitHub Activity */
-        .github-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .github-stat {
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.08), rgba(255, 0, 255, 0.08));
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            text-align: center;
-        }
-
-        .github-stat-value {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #00ffff;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-        }
-
-        .github-stat-label {
-            color: #a0a0a0;
-            margin-top: 10px;
-            font-size: 0.95em;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5em;
-            }
-
-            .section-title {
-                font-size: 1.8em;
-            }
-
-            .tech-grid {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            }
-        }
-
-        /* Glowing effect */
-        .glow {
-            animation: glow 2s ease-in-out infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                filter: brightness(1);
-            }
-            50% {
-                filter: brightness(1.3);
-            }
-        }
-
-        /* Code effect */
-        .code-rain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0.1;
-            z-index: 0;
-        }
-    </style>
-</head>
-<body>
-    <!-- Animated particles -->
-    <div class="particles" id="particles"></div>
-
-    <div class="container">
-        <!-- Header Section -->
-        <header>
-            <div class="profile-image">
-                <div class="avatar">👨‍💻</div>
-            </div>
-            <h1>Hi 👋, I'm Prasad Shinde</h1>
-            <div class="title">🚀 QA Automation Engineer</div>
-            <div class="company">Reactore Private Limited</div>
-            <div class="tagline">🔧 Let's build, break and test smarter. Quality is never an accident! 💡</div>
-        </header>
-
-        <!-- Stats Section -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number">234</div>
-                <div class="stat-label">Profile Views</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">20</div>
-                <div class="stat-label">Total Contributions</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">90.87%</div>
-                <div class="stat-label">Java Expertise</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">2825</div>
-                <div class="stat-label">Commits</div>
-            </div>
-        </div>
-
-        <!-- Current Focus -->
-        <section class="section">
-            <h2 class="section-title">📚 Current Focus</h2>
-            <div class="focus-grid">
-                <div class="focus-item">
-                    <span class="check-icon">✅</span>
-                    <div>
-                        <strong>Playwright with Java (Automation Framework)</strong>
-                        <div style="color: #808080; font-size: 0.9em;">Building robust test automation frameworks</div>
-                    </div>
-                </div>
-                <div class="focus-item">
-                    <span class="check-icon">✅</span>
-                    <div>
-                        <strong>BDD (Cucumber), Page Object Model</strong>
-                        <div style="color: #808080; font-size: 0.9em;">Implementing behavior-driven development practices</div>
-                    </div>
-                </div>
-                <div class="focus-item">
-                    <span class="check-icon">✅</span>
-                    <div>
-                        <strong>Excel Data-Driven Testing</strong>
-                        <div style="color: #808080; font-size: 0.9em;">Advanced data management for test automation</div>
-                    </div>
-                </div>
-                <div class="focus-item">
-                    <span class="check-icon">✅</span>
-                    <div>
-                        <strong>Test Case Documentation & UI Testing Reports</strong>
-                        <div style="color: #808080; font-size: 0.9em;">Comprehensive quality assurance documentation</div>
-                    </div>
-                </div>
-                <div class="focus-item">
-                    <span class="check-icon">✅</span>
-                    <div>
-                        <strong>Manual Testing, Selenium, and Playwright (Java)</strong>
-                        <div style="color: #808080; font-size: 0.9em;">Multi-tool testing expertise</div>
-                    </div>
-                </div>
-                <div class="focus-item">
-                    <span class="check-icon">✅</span>
-                    <div>
-                        <strong>Linux Certification & Web Technologies</strong>
-                        <div style="color: #808080; font-size: 0.9em;">Expanding technical knowledge base</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Core QA Skills -->
-        <section class="section">
-            <h2 class="section-title">🎯 Core QA & Automation Skills</h2>
-            <div class="skills-list">
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">Manual Testing & Test Case Design</span>
-                        <span class="skill-level">Expert</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 95%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">Selenium WebDriver (Java)</span>
-                        <span class="skill-level">Advanced</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 90%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">Playwright Automation Framework</span>
-                        <span class="skill-level">Advanced</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 88%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">BDD with Cucumber</span>
-                        <span class="skill-level">Advanced</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 85%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">Page Object Model (POM)</span>
-                        <span class="skill-level">Expert</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 92%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">Test Reporting & Documentation</span>
-                        <span class="skill-level">Expert</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 93%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">Data-Driven Testing (Excel)</span>
-                        <span class="skill-level">Advanced</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 87%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">API Testing & Automation</span>
-                        <span class="skill-level">Intermediate</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 75%"></div>
-                    </div>
-                </div>
-                <div class="skill">
-                    <div class="skill-header">
-                        <span class="skill-name">CI/CD Integration</span>
-                        <span class="skill-level">Intermediate</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 70%"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tech Stack -->
-        <section class="section">
-            <h2 class="section-title">🛠️ Technology Stack</h2>
-            <div class="tech-grid">
-                <div class="tech-item">
-                    <div class="tech-icon">☕</div>
-                    <div class="tech-name">Java</div>
-                    <div class="tech-level">Core Language</div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-icon">🎭</div>
-                    <div class="tech-name">Playwright</div>
-                    <div class="tech-level">Automation</div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-icon">🌐</div>
-                    <div class="tech-name">Selenium</div>
-                    <div class="tech-level">WebDriver</div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-icon">🥒</div>
-                    <div class="tech-name">Cucumber</div>
-                    <div class="tech-level">BDD Framework</div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-icon">🧪</div>
-                    <div class="tech-name">TestNG</div>
-                    <div class="tech-level">Testing Framework</div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-icon">📊</div>
-                    <div class="tech-name">Excel</div>
-                    <div class="tech-level">Data-Driven</div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-icon">🔨</div>
-                    <div class="tech-name">Maven</div>
-                    <div class="tech-level">Build Tool</div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-icon">📝</div>
-                    <div class="tech-name">Jira</div>
-                    <div class="tech-level">Project Mgmt</div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-icon">🐙</div>
-                    <div class="tech-name">Git</div>
-                    <div class="tech-level">Version Control</div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-icon">🗄️</div>
-                    <div class="tech-name">SQL</div>
-                    <div class="tech-level">Database</div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-icon">🐧</div>
-                    <div class="tech-name">Linux</div>
-                    <div class="tech-level">OS Platform</div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-icon">🌍</div>
-                    <div class="tech-name">HTML/CSS</div>
-                    <div class="tech-level">Web Tech</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- GitHub Stats -->
-        <section class="section">
-            <h2 class="section-title">📊 GitHub Activity</h2>
-            <div class="github-stats">
-                <div class="github-stat">
-                    <div class="github-stat-value">Java</div>
-                    <div class="github-stat-label">Primary Language<br>90.87%</div>
-                </div>
-                <div class="github-stat">
-                    <div class="github-stat-value">2825</div>
-                    <div class="github-stat-label">Total Commits</div>
-                </div>
-                <div class="github-stat">
-                    <div class="github-stat-value">20</div>
-                    <div class="github-stat-label">Contributions</div>
-                </div>
-                <div class="github-stat">
-                    <div class="github-stat-value">2</div>
-                    <div class="github-stat-label">Longest Streak<br>(Days)</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="section">
-            <h2 class="section-title">📧 Connect With Me</h2>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <div class="contact-icon">📧</div>
-                    <div class="contact-label">Email</div>
-                    <div class="contact-value">prasadshinde9066@gmail.com</div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">💼</div>
-                    <div class="contact-label">LinkedIn</div>
-                    <div class="contact-value">Connect on LinkedIn</div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📸</div>
-                    <div class="contact-label">Instagram</div>
-                    <div class="contact-value">Follow on Instagram</div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">🏢</div>
-                    <div class="contact-label">Company</div>
-                    <div class="contact-value">Reactore Private Limited</div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <script>
-        // Create floating particles
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 50; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 15 + 's';
-            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
-            particlesContainer.appendChild(particle);
-        }
-
-        // Animate skill bars on scroll
-        const observerOptions = {
-            threshold: 0.5
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const progressBars = entry.target.querySelectorAll('.skill-progress');
-                    progressBars.forEach(bar => {
-                        const width = bar.style.width;
-                        bar.style.width = '0%';
-                        setTimeout(() => {
-                            bar.style.width = width;
-                        }, 100);
-                    });
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.skills-list').forEach(section => {
-            observer.observe(section);
-        });
-
-        // Add hover effects to tech items
-        document.querySelectorAll('.tech-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.background = 'linear-gradient(135deg, rgba(0, 255, 255, 0.15), rgba(255, 0, 255, 0.15))';
-            });
-            item.addEventListener('mouseleave', function() {
-                this.style.background = 'linear-gradient(135deg, rgba(0, 255, 255, 0.08), rgba(255, 0, 255, 0.08))';
-            });
-        });
-
-        // Animate stats on load
-        window.addEventListener('load', () => {
-            document.querySelectorAll('.stat-card').forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
-            });
-        });
-    </script>
-</body>
-</html>
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=180&section=header&text=Prasad%20Shinde&fontSize=50&fontColor=fff&animation=twinkling&fontAlignY=35&desc=QA%20Automation%20Engineer%20%7C%20Testing%20Architect%20%7C%20Quality%20Champion&descSize=18&descAlignY=55" width="100%"/>
+</p>
+
+<h1 align="center">Hi 👋, I'm Prasad Shinde</h1>
+<h3 align="center">🚀 QA Automation Engineer | Reactore Private Limited | Passionate About Automation & Quality Assurance</h3>
+
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=22&duration=3000&pause=1000&color=00F7F7&center=true&vCenter=true&width=600&lines=QA+Automation+Engineer+%F0%9F%9A%80;Playwright+%7C+Selenium+%7C+BDD+Expert+%F0%9F%A7%AA;Building+Robust+Test+Frameworks+%E2%9A%99%EF%B8%8F;AI-Powered+Testing+Enthusiast+%F0%9F%A4%96;DSA+%26+Problem+Solver+%F0%9F%A7%A0;Quality+is+Never+an+Accident!+%F0%9F%92%A1" alt="Typing SVG" />
+</p>
+
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=prasad4747&label=Profile%20views&color=0e75b6&style=flat" alt="prasad4747" />
+  <img src="https://img.shields.io/badge/Focus-Test%20Automation-brightgreen" />
+  <img src="https://img.shields.io/badge/Learning-AI%20%26%20DSA-orange" />
+  <img src="https://img.shields.io/badge/Status-Building%20Quality-blue" />
+</p>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="700">
+</p>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="500">
+</p>
+
+---
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/212284087-bbe7e430-757e-4901-90bf-4cd2ce3e1852.gif" width="100">
+</p>
+
+<div align="center">
+  
+## 🎯 Testing Philosophy
+  
+> *"Quality is not an act, it is a habit. Testing is not just finding bugs, it's ensuring excellence!"*
+
+</div>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/212284115-f47cd8ff-2ffb-4b04-b5bf-4d1c14c0247f.gif" width="1000">
+</p>
+
+### 💼 About Me
+
+- 🎓 **QA Automation Engineer at Reactore Private Limited**
+- 🔭 Currently working on **Playwright, Selenium, Manual Testing & BDD Framework (Java)**
+- 🌱 Learning **Linux Certification, Advanced Web Technologies, DSA & AI Agents**
+- 🎯 Specializing in **Test Automation Frameworks, Data-Driven Testing & CI/CD Integration**
+- 🤖 Exploring **AI-Powered Testing, Machine Learning in QA & Intelligent Test Automation**
+- 💻 Building foundations in **Data Structures & Algorithms (DSA) with Java**
+- 💬 Ask me about:
+  - Manual Testing & Test Case Design
+  - Selenium WebDriver & Playwright Automation
+  - BDD with Cucumber & Page Object Model
+  - Core Java & Test Frameworks (TestNG, JUnit)
+  - Data-Driven Testing with Excel/Apache POI
+  - **Data Structures & Algorithms (DSA) - Arrays, LinkedLists, Stacks, Queues, Trees**
+  - **AI Agents & Automation - Exploring Claude API, OpenAI, LangChain**
+  - **Emerging Technologies - AI Testing Tools, Copilot, ChatGPT for QA**
+  - Oracle SQL & Database Testing
+  - Linux & Shell Scripting
+  - Jira & Test Management
+  - API Testing & Postman
+  - CI/CD with Jenkins/GitHub Actions
+- 📬 **Reach me at:** [prasadshinde9066@gmail.com](mailto:prasadshinde9066@gmail.com)
+
+---
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/212284158-e840e285-664b-44d7-b79b-e264b5e54825.gif" width="400">
+</p>
+
+### 🌐 Connect with Me
+
+<p align="left">
+  <a href="https://www.linkedin.com/in/prasad-shinde-22746821a" target="blank">
+    <img src="https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/>
+  </a>
+  <a href="https://instagram.com/sourav_4747" target="blank">
+    <img src="https://img.shields.io/badge/-Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"/>
+  </a>
+  <a href="mailto:prasadshinde9066@gmail.com" target="blank">
+    <img src="https://img.shields.io/badge/-Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"/>
+  </a>
+</p>
+
+---
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/229223263-cf2e4b07-2615-4f87-9c38-e37600f8381a.gif" width="400">
+</p>
+
+### 🎯 Current Focus
+
+- ✅ **Playwright with Java (Automation Framework)** - Building robust end-to-end test automation
+- ✅ **BDD (Cucumber) & Page Object Model** - Implementing behavior-driven development practices
+- ✅ **Excel Data-Driven Testing** - Advanced data management with Apache POI
+- ✅ **Test Case Documentation & UI Testing Reports** - Comprehensive quality assurance documentation
+- ✅ **Manual Testing, Selenium & API Testing** - Multi-layered testing approach
+- ✅ **Linux Certification & DevOps Tools** - Expanding technical infrastructure knowledge
+- 🆕 **Data Structures & Algorithms (DSA)** - Arrays, LinkedLists, Stacks, Queues, Trees, Sorting & Searching
+- 🤖 **AI Agents & Intelligent Automation** - Exploring Claude API, OpenAI, LangChain, AutoGen
+- 🚀 **Emerging Technologies** - AI-powered testing tools, GitHub Copilot, Generative AI in QA
+- 💡 **Machine Learning Basics** - Understanding ML concepts for predictive test analytics
+
+---
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/212257454-16e3712e-945a-4ca2-b238-408ad0bf87e6.gif" width="100">
+  <img src="https://user-images.githubusercontent.com/74038190/212257472-08e52665-c503-4bd9-aa20-f5a4dae769b5.gif" width="100">
+  <img src="https://user-images.githubusercontent.com/74038190/212257468-1e9a91f1-b626-4baa-b15d-5c385dfa7ed2.gif" width="100">
+  <img src="https://user-images.githubusercontent.com/74038190/212257465-7ce8d493-cac5-494e-982a-5a9deb852c4b.gif" width="100">
+  <img src="https://user-images.githubusercontent.com/74038190/212257460-738ff738-247f-4445-a718-cdd0ca76e2db.gif" width="100">
+</p>
+
+### 🛠️ Tech Stack & Tools
+
+#### **Testing & Automation**
+<p align="left">
+  <img src="https://www.selenium.dev/images/selenium_logo_square_green.png" alt="Selenium" width="45" title="Selenium WebDriver"/>
+  <img src="https://playwright.dev/img/playwright-logo.svg" alt="Playwright" width="45" title="Playwright"/>
+  <img src="https://raw.githubusercontent.com/cucumber/cucumber-js/main/docs/images/cucumber-logo.svg" alt="Cucumber" width="45" title="Cucumber BDD"/>
+  <img src="https://avatars.githubusercontent.com/u/874086?s=200&v=4" alt="JUnit" width="45" title="JUnit"/>
+  <img src="https://avatars.githubusercontent.com/u/12528662?s=200&v=4" alt="TestNG" width="45" title="TestNG"/>
+  <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="Postman" width="45" title="Postman"/>
+</p>
+
+#### **Programming & Frameworks**
+<p align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" width="45" title="Java"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" width="45" title="JavaScript"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" width="45" title="HTML5"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" width="45" title="CSS3"/>
+  <img src="https://www.vectorlogo.zone/logos/apache_maven/apache_maven-icon.svg" alt="Maven" width="45" title="Apache Maven"/>
+</p>
+
+#### **Databases**
+<p align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle" width="45" title="Oracle SQL"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" width="45" title="MySQL"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" width="45" title="PostgreSQL"/>
+</p>
+
+#### **DevOps & Tools**
+<p align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" width="45" title="Git"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" width="45" title="GitHub"/>
+  <img src="https://www.vectorlogo.zone/logos/jenkins/jenkins-icon.svg" alt="Jenkins" width="45" title="Jenkins"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" width="45" title="Linux"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" width="45" title="Docker"/>
+</p>
+
+#### **AI & Emerging Technologies**
+<p align="left">
+  <img src="https://www.vectorlogo.zone/logos/openai/openai-icon.svg" alt="OpenAI" width="45" title="OpenAI API"/>
+  <img src="https://avatars.githubusercontent.com/u/126733545?s=200&v=4" alt="LangChain" width="45" title="LangChain"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" width="45" title="Python for AI"/>
+  <img src="https://avatars.githubusercontent.com/u/1728152?s=200&v=4" alt="Anthropic" width="45" title="Claude API"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" width="45" title="TensorFlow"/>
+</p>
+
+#### **DSA & Problem Solving**
+<p align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java DSA" width="45" title="Java DSA"/>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/LeetCode_Logo_black_with_text.svg" alt="LeetCode" width="45" title="LeetCode"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="C++" width="45" title="C++"/>
+</p>
+
+#### **Project Management**
+<p align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" alt="Jira" width="45" title="Jira"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/confluence/confluence-original.svg" alt="Confluence" width="45" title="Confluence"/>
+</p>
+
+---
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="600">
+</p>
+
+### 📊 GitHub Stats
+
+<div align="center">
+  
+  <img src="https://github-readme-stats.vercel.app/api?username=prasad4747&show_icons=true&theme=radical&hide_border=true&count_private=true&bg_color=0D1117&title_color=00F7F7&icon_color=00F7F7&text_color=FFFFFF" alt="GitHub Stats" width="49%"/>
+  <img src="https://github-readme-streak-stats.herokuapp.com?user=prasad4747&theme=radical&hide_border=true&background=0D1117&ring=00F7F7&fire=FF6D00&currStreakLabel=00F7F7" alt="GitHub Streak" width="49%"/>
+  
+</div>
+
+<div align="center">
+  
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=prasad4747&layout=compact&theme=radical&hide_border=true&bg_color=0D1117&title_color=00F7F7&text_color=FFFFFF&langs_count=8" alt="Top Languages" width="49%"/>
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=prasad4747&theme=radical" alt="Productive Time" width="49%"/>
+  
+</div>
+
+<p align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=prasad4747&custom_title=Prasad's%20Contribution%20Graph&bg_color=0D1117&color=00F7F7&line=00F7F7&point=FFFFFF&area_color=00F7F7&area=true&hide_border=true" alt="Contribution Graph" width="98%"/>
+</p>
+
+---
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/216122041-518ac897-8d92-4c6b-9b3f-ca01dcaf38ee.gif" width="80">
+  <img src="https://user-images.githubusercontent.com/74038190/216122069-5b8169d7-1d8e-4a13-b245-a8e4176c99f8.gif" width="80">
+</p>
+
+### 🏆 GitHub Trophies
+
+<p align="center">
+  <img src="https://github-profile-trophy.vercel.app/?username=prasad4747&theme=radical&no-frame=true&no-bg=true&row=1&column=7&margin-w=15&margin-h=15" alt="GitHub Trophies"/>
+</p>
+
+---
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/212284136-03988914-d899-44b4-b1d9-4eeccf656e44.gif" width="100">
+</p>
+
+### 🎯 GitHub Highlights
+
+<div align="center">
+
+| 🎯 Metric | 📊 Value |
+|-----------|----------|
+| 🔹 **Total Contributions** | `20` |
+| 🔹 **Longest Streak** | `2 Days` |
+| 🔹 **Total Commits** | `2825` |
+| 🔹 **Primary Language** | `Java (90.87%)` |
+| 🔹 **Profile Views** | `234+` |
+
+</div>
+
+---
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/212749447-bfb7e725-6987-49d9-ae85-2015e3e7cc41.gif" width="400">
+</p>
+
+### 💡 Core Competencies
+
+```text
+🧪 Test Automation          ████████████████████  95%
+📝 Manual Testing           ████████████████████  93%
+☕ Java Programming         ████████████████████  90%
+🎭 Playwright Framework     █████████████████░░░  88%
+🌐 Selenium WebDriver       ████████████████░░░░  85%
+🥒 BDD with Cucumber        █████████████████░░░  85%
+📊 Data-Driven Testing      █████████████████░░░  87%
+🗄️ SQL & Database Testing  ████████████████░░░░  82%
+🐧 Linux Administration     ███████████████░░░░░  75%
+🔄 CI/CD Integration        ██████████████░░░░░░  70%
+🧠 DSA & Problem Solving    ████████████░░░░░░░░  65%
+🤖 AI Agents & Automation   ███████████░░░░░░░░░  60%
+💡 ML Basics & AI Testing   ██████████░░░░░░░░░░  55%
+```
+
+---
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/212750672-2f3f2b50-c84f-4ed8-a60a-849ae69ff9df.gif" width="400">
+</p>
+
+### 📈 Recent Activity
+
+<!--START_SECTION:activity-->
+- 🔨 Working on automation framework enhancements
+- 📚 Learning advanced Playwright patterns and AI-powered testing
+- 🎯 Implementing data-driven test strategies
+- 🧠 Practicing DSA problems - Arrays, LinkedLists, Trees, and Sorting algorithms
+- 🤖 Exploring AI Agents with Claude API and LangChain
+- 💡 Building intelligent test automation with generative AI
+- 📝 Creating comprehensive test documentation
+- 🚀 Exploring CI/CD pipeline optimization
+<!--END_SECTION:activity-->
+
+---
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/212750996-938b257b-266c-45a7-9af7-655341c0f58b.gif" width="400">
+</p>
+
+### 🎓 Certifications & Learning Path
+
+- 📜 **Pursuing:** Linux Professional Certification (LPI)
+- 🎯 **Focus Areas:** Advanced Test Automation, Performance Testing, Security Testing
+- 📚 **Currently Learning:** 
+  - Data Structures & Algorithms (DSA) with Java
+  - AI Agents & LangChain Framework
+  - Machine Learning fundamentals for QA
+  - Docker, Kubernetes, AWS Cloud Basics
+  - Generative AI for Test Automation
+- 🤖 **AI/ML Learning:** Claude API, OpenAI, AutoGen, Prompt Engineering
+- 💻 **DSA Practice:** LeetCode, HackerRank, GeeksforGeeks
+
+---
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/212741999-016fddbd-617a-4448-8042-0ecf907aea25.gif" width="500">
+</p>
+
+### 💻 Featured Projects
+
+#### 🔹 **Automation Framework (Playwright + Java)**
+- Built robust Page Object Model architecture
+- Implemented BDD with Cucumber integration
+- Data-driven testing with Excel/Apache POI
+- Comprehensive HTML reporting
+
+#### 🔹 **Selenium Test Suite**
+- Cross-browser testing automation
+- TestNG integration for parallel execution
+- Custom utility classes and reusable components
+- Jenkins CI/CD pipeline integration
+
+#### 🔹 **API Testing Framework**
+- RESTful API validation using Rest Assured
+- Request/Response validation
+- JSON schema validation
+- Integration with test reporting tools
+
+#### 🤖 **AI-Powered Test Automation (Exploring)**
+- Integrating Claude API for intelligent test generation
+- Using LangChain for test case creation from requirements
+- Exploring AI-based visual regression testing
+- Building chatbot for test result analysis
+
+#### 🧠 **DSA Practice & Problem Solving**
+- Implementing classic algorithms in Java
+- Arrays, LinkedLists, Stacks, Queues, Trees
+- Sorting algorithms: QuickSort, MergeSort, HeapSort
+- Solving problems on LeetCode and HackerRank
+
+---
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/216120981-b9507c36-0e04-4469-8e27-c99271b45ba5.gif" width="200">
+  <img src="https://user-images.githubusercontent.com/74038190/216121919-60befe4d-11c6-4227-8992-35221d12ff54.gif" width="200">
+  <img src="https://user-images.githubusercontent.com/74038190/216120974-24a76b31-7f39-41f1-a38f-b3c1377cc612.gif" width="200">
+</p>
+
+### 📫 Let's Connect!
+
+<p align="center">
+  <i>I'm always open to discussing QA strategies, automation frameworks, or collaboration opportunities!</i>
+</p>
+
+<p align="center">
+  <a href="https://www.linkedin.com/in/prasad-shinde-22746821a">
+    <img src="https://img.shields.io/badge/Let's_Connect-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/>
+  </a>
+</p>
+
+---
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=120&section=footer&text=Thanks%20for%20Visiting!&fontSize=30&fontColor=fff&animation=twinkling&fontAlignY=70"/>
+</p>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="900">
+</p>
+
+<div align="center">
+
+### 💭 Quote of the Day
+
+<p align="center">
+  <img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical" alt="Random Dev Quote"/>
+</p>
+
+</div>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/212284115-f47cd8ff-2ffb-4b04-b5bf-4d1c14c0247f.gif" width="1000">
+</p>
+
+<p align="center">
+  <i>🚀 "Let's build, break and test smarter. Quality is never an accident!" 💡</i>
+</p>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/212284158-e840e285-664b-44d7-b79b-e264b5e54825.gif" width="300">
+</p>
+
+---
+
+<div align="center">
+  
+  <img src="https://komarev.com/ghpvc/?username=prasad4747&label=Total%20Profile%20Views&color=blueviolet&style=for-the-badge" alt="Profile Views"/>
+  
+  <br><br>
+  
+  <a href="https://github.com/prasad4747">
+    <img src="https://img.shields.io/github/followers/prasad4747?label=Followers&style=for-the-badge&color=00F7F7&labelColor=0D1117" alt="followers"/>
+  </a>
+  <img src="https://img.shields.io/github/stars/prasad4747?label=Stars&style=for-the-badge&color=FF6D00&labelColor=0D1117" alt="stars"/>
+  
+</div>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/74038190/212284087-bbe7e430-757e-4901-90bf-4cd2ce3e1852.gif" width="50">
+  <i>Made with ❤️ by Prasad Shinde</i>
+  <img src="https://user-images.githubusercontent.com/74038190/212284087-bbe7e430-757e-4901-90bf-4cd2ce3e1852.gif" width="50">
+</p>
